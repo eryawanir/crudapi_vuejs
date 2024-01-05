@@ -51,6 +51,21 @@
 
           <div class="input-group mb-1">
             <div class="form-floating">
+              <select class="form-select  @error('role') is-invalid @enderror" name="role" id="role">
+                <option selected>Pilih salah satu</option>
+                <option value="anggota">Anggota</option>
+                <option value="petugas">Petugas</option>
+              </select>
+              <label for="role">Daftar Sebagai</label>
+              @error('role')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+              @enderror
+            </div>
+            <div class="input-group-text"><span class="bi bi-person"></span></div>
+          </div>
+
+          <div class="input-group mb-1">
+            <div class="form-floating">
               <input id="registerPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="">
               <label for="registerPassword">Password</label>
               @error('password')
