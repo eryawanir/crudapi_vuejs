@@ -22,11 +22,13 @@
           <div class="row">
             <h3 class="">Daftar Judul Buku</h3>
           </div>
-          <div class="row">
-            <div class="col">
-              <a class="btn btn-primary" href="{{ route('book-titles.create') }}" role="button">+ Tambah Judul Buku</a>
+          @can('create', App\Models\BookTitle::class)
+            <div class="row">
+              <div class="col">
+                <a class="btn btn-primary" href="{{ route('book-titles.create') }}" role="button">+ Tambah Judul Buku</a>
+              </div>
             </div>
-          </div>
+          @endcan
         </div><!-- /.card-header -->
         <div class="card-body">
           <table class="table table-bordered">

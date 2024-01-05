@@ -57,16 +57,19 @@
         <div class="card-footer">
           <div class="row">
             <div class="col">
-
-              <form method="POST" action="{{ route('book-titles.destroy', ['book_title' => $book->id]) }}">
-                @method('DELETE')
-                @csrf
-                <button class="btn btn-danger me-2 " type="submit">Hapus</button>
-              </form>
+              @can('delete', $book, App\Models\BookTitle::class)
+                <form method="POST" action="{{ route('book-titles.destroy', ['book_title' => $book->id]) }}">
+                  @method('DELETE')
+                  @csrf
+                  <button class="btn btn-danger me-2 " type="submit">Hapus</button>
+                </form>
+              @endcan
             </div>
             <div class="col d-flex justify-content-end">
               <a class="btn btn-secondary me-2 " href="{{ route('book-titles.index') }}" role="button">Kembali</a>
-              <a class="btn btn-primary me-2 " href="{{ route('book-titles.edit', ['book_title' => $book->id]) }}" role="button">Edit</a>
+              @can('update', $book, App\Models\BookTitle::class)
+                <a class="btn btn-primary me-2 " href="{{ route('book-titles.edit', ['book_title' => $book->id]) }}" role="button">Edit</a>
+              @endcan
             </div>
           </div>
         </div>

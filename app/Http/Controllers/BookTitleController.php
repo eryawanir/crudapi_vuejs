@@ -11,7 +11,8 @@ class BookTitleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('admin')->except(['index', 'show']);
     }
     /**
      * Display a listing of the resource.
@@ -27,6 +28,7 @@ class BookTitleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', BookTitle::class);
         return view('book-title.create');
     }
 
@@ -35,6 +37,7 @@ class BookTitleController extends Controller
      */
     public function store(StoreBookTitleRequest $request)
     {
+        $this->authorize('create', BookTitle::class);
         $input = $request->validated();
         $request->cover->store('public/book_covers');
         $input['cover'] = $request->cover->hashName();
@@ -61,6 +64,7 @@ class BookTitleController extends Controller
      */
     public function edit(BookTitle $bookTitle)
     {
+        $this->authorize('update', BookTitle::class);
         $book = $bookTitle;
         return view('book-title.edit', compact('book'));
     }
@@ -70,6 +74,7 @@ class BookTitleController extends Controller
      */
     public function update(UpdateBookTitleRequest $request, BookTitle $bookTitle)
     {
+        $this->authorize('update', BookTitle::class);
         $input = $request->validated();
         if ($request->has('cover')) {
             Storage::delete('public/book_covers/' . $request->oldCover);
@@ -85,6 +90,7 @@ class BookTitleController extends Controller
      */
     public function destroy(BookTitle $bookTitle)
     {
+        $this->authorize('delete', BookTitle::class);
         Storage::delete('public/book_covers/' . $bookTitle->cover);
         $bookTitle->delete();
         return redirect()->route('book-titles.index')

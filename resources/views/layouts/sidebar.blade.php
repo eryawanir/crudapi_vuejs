@@ -14,47 +14,52 @@
   <div class="sidebar-wrapper">
     <nav class="mt-2"><!--begin::Sidebar Menu-->
       <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
-
-        <li class="nav-item mb-3">
-          <a href="#" class="nav-link active ">
-            <i class="nav-icon bi bi-bookshelf"></i>
-            <p>Perpustakaan</p>
-          </a>
-        </li>
+        @if (auth()->user()->role == 'anggota')
+          <li class="nav-item mb-3">
+            <a href="{{ route('book-titles.index') }}" class="nav-link {{ request()->is('book-titles') ? 'active' : '' }} ">
+              <i class="nav-icon bi bi-bookshelf"></i>
+              <p>Perpustakaan</p>
+            </a>
+          </li>
+        @endif
 
         @guest
         @else
-          <li class="nav-header">KELOLA DATA</li>
-          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-book"></i>
-              <p>
-                Buku
-                <i class="nav-arrow bi bi-chevron-right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-list"></i>
-                  <p>Daftar</p>
-                </a></li>
-              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-file-earmark-plus"></i>
-                  <p>Pendaftaran</p>
-                </a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-people-fill"></i>
-              <p>
-                Anggota
-                <i class="nav-arrow bi bi-chevron-right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-person-lines-fill"></i>
-                  <p>Daftar</p>
-                </a></li>
-              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-person-add"></i>
-                  <p>Pendaftaran</p>
-                </a></li>
-            </ul>
-          </li>
+          @if (auth()->user()->role == 'petugas')
+            <li class="nav-header">KELOLA DATA</li>
+            <li class="nav-item">
+              <a href="{{ route('book-titles.index') }}" class="nav-link {{ request()->routeIs('book-titles.*') ? 'active' : '' }}">
+                <i class="nav-icon bi bi-book"></i>
+                <p>
+                  Judul Buku
+                </p>
+              </a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-database"></i>
+                <p>
+                  Stok Buku
+                </p>
+              </a>
+            </li>
+          @endif
+          @if (auth()->user()->role == 'anggota')
+            <li class="nav-header">PEMINJAMAN</li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-book"></i>
+                <p>
+                  Buku
+                  <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-list"></i>
+                    <p>Daftar</p>
+                  </a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-file-earmark-plus"></i>
+                    <p>Pendaftaran</p>
+                  </a></li>
+              </ul>
+            </li>
+          @endif
         @endguest
       </ul><!--end::Sidebar Menu-->
     </nav>

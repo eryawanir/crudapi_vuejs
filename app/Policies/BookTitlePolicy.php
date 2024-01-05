@@ -11,7 +11,7 @@ class BookTitlePolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
         //
     }
@@ -19,7 +19,7 @@ class BookTitlePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, BookTitle $bookTitle): bool
+    public function view(User $user, BookTitle $bookTitle)
     {
         //
     }
@@ -29,7 +29,7 @@ class BookTitlePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role == 'petugas';
     }
 
     /**
@@ -37,7 +37,7 @@ class BookTitlePolicy
      */
     public function update(User $user, BookTitle $bookTitle): bool
     {
-        //
+        return $user->role == 'petugas';
     }
 
     /**
@@ -45,7 +45,7 @@ class BookTitlePolicy
      */
     public function delete(User $user, BookTitle $bookTitle): bool
     {
-        //
+        return $user->role == 'petugas';
     }
 
     /**
@@ -53,7 +53,7 @@ class BookTitlePolicy
      */
     public function restore(User $user, BookTitle $bookTitle): bool
     {
-        //
+        return $user->role == 'petugas';
     }
 
     /**
@@ -61,6 +61,6 @@ class BookTitlePolicy
      */
     public function forceDelete(User $user, BookTitle $bookTitle): bool
     {
-        //
+        return $user->role == 'petugas';
     }
 }
