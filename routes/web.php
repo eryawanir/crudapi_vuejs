@@ -21,6 +21,6 @@ Route::get('/', function () {
 
 Route::resource('book-titles', BookTitleController::class);
 
-Auth::routes();
+Auth::routes(['verify' => false, 'reset' => false, 'confirm' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
