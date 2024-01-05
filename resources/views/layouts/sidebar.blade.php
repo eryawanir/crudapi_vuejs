@@ -16,44 +16,46 @@
       <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
 
         <li class="nav-item mb-3">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link active ">
             <i class="nav-icon bi bi-bookshelf"></i>
             <p>Perpustakaan</p>
           </a>
         </li>
 
-
-        <li class="nav-header">KELOLA DATA</li>
-        <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-book"></i>
-            <p>
-              Buku
-              <i class="nav-arrow bi bi-chevron-right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-list"></i>
-                <p>Daftar</p>
-              </a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-file-earmark-plus"></i>
-                <p>Pendaftaran</p>
-              </a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-people-fill"></i>
-            <p>
-              Anggota
-              <i class="nav-arrow bi bi-chevron-right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-person-lines-fill"></i>
-                <p>Daftar</p>
-              </a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-person-add"></i>
-                <p>Pendaftaran</p>
-              </a></li>
-          </ul>
-        </li>
+        @guest
+        @else
+          <li class="nav-header">KELOLA DATA</li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-book"></i>
+              <p>
+                Buku
+                <i class="nav-arrow bi bi-chevron-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-list"></i>
+                  <p>Daftar</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-file-earmark-plus"></i>
+                  <p>Pendaftaran</p>
+                </a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-people-fill"></i>
+              <p>
+                Anggota
+                <i class="nav-arrow bi bi-chevron-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-person-lines-fill"></i>
+                  <p>Daftar</p>
+                </a></li>
+              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-person-add"></i>
+                  <p>Pendaftaran</p>
+                </a></li>
+            </ul>
+          </li>
+        @endguest
       </ul><!--end::Sidebar Menu-->
     </nav>
   </div><!--end::Sidebar Wrapper-->

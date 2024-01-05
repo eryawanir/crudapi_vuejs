@@ -16,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('book-titles');
 });
-
-Route::resource('book-titles', BookTitleController::class);
+Route::get('/home', function () {
+    return redirect('book-titles');
+});
 
 Auth::routes(['verify' => false, 'reset' => false, 'confirm' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('book-titles', BookTitleController::class);

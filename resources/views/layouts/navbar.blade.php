@@ -14,12 +14,12 @@
         </a>
       </li>
       @guest
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a href="{{ route('register') }}" class="nav-link">
             <i class="bi bi-pencil-square"></i>
             <span class="d-md-inline">Daftar</span>
           </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
           <a href="{{ route('login') }}" class="nav-link">
             <i class="bi bi-box-arrow-in-right"></i>
