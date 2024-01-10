@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookTitleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,13 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect('book-titles');
-});
-Route::get('/home', function () {
-    return redirect('book-titles');
-});
-
 Auth::routes(['verify' => false, 'reset' => false, 'confirm' => false]);
 
+Route::redirect('/', 'book-titles');
+Route::redirect('/home', 'book-titles');
+
+Route::get('books/choose-book-title', [BookController::class, 'choose_title'])->name('books.choose-title');
 Route::resource('book-titles', BookTitleController::class);
+Route::resource('books', BookController::class);

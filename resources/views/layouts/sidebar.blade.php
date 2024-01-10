@@ -14,7 +14,7 @@
   <div class="sidebar-wrapper">
     <nav class="mt-2"><!--begin::Sidebar Menu-->
       <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
-        @if (auth()->user()->role == 'anggota')
+        @if (auth()->user()?->role == 'anggota' or !auth()->check())
           <li class="nav-item mb-3">
             <a href="{{ route('book-titles.index') }}" class="nav-link {{ request()->is('book-titles') ? 'active' : '' }} ">
               <i class="nav-icon bi bi-bookshelf"></i>
@@ -35,7 +35,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-database"></i>
+            <li class="nav-item"><a href="{{ route('books.index') }}" class="nav-link {{ request()->routeIs('books.*') ? 'active' : '' }}"><i class="nav-icon bi bi-database"></i>
                 <p>
                   Stok Buku
                 </p>
