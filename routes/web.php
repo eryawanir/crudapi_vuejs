@@ -21,6 +21,8 @@ Auth::routes(['verify' => false, 'reset' => false, 'confirm' => false]);
 Route::redirect('/', 'book-titles');
 Route::redirect('/home', 'book-titles');
 
-Route::get('books/choose-book-title', [BookController::class, 'choose_title'])->name('books.choose-title');
 Route::resource('book-titles', BookTitleController::class);
-Route::resource('books', BookController::class);
+
+Route::get('books/choose-book-title', [BookController::class, 'choose_title'])->name('books.choose-title');
+Route::get('books/create/{bookTitle}', [BookController::class, 'create'])->name('books.create');
+Route::resource('books', BookController::class, ['except' => ['create']]);

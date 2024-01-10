@@ -17,59 +17,84 @@
 @section('content')
   <div class="row">
 
-    <div class="col-md-8 col-xl-8">
+    <div class="col-md-9 col-xl-9">
       <div class="card card-primary card-outline mb-4">
 
         <div class="card-header">
-          <div class="card-title">Form Tambah Stok Buku</div>
+          <div class="card-title">Judul Buku</div>
         </div>
 
-        <form action="{{ route('book-titles.store') }}" method="post" enctype="multipart/form-data">
-          @csrf
-          <div class="card-body">
-
-            <div class="mb-3">
-              <label for="title" class="form-label">Judul Buku</label>
-              <input type="text" id="title" name="title" value="{{ old('title') }}" class="form-control @error('title') is-invalid @enderror">
-              @error('title')
-                <div class="form-text text-danger">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <div class="mb-3">
-              <label for="author" class="form-label">Pengarang</label>
-              <input type="text" id="author" name="author" value="{{ old('author') }}" class="form-control @error('author') is-invalid @enderror">
-              @error('author')
-                <div class="form-text text-danger">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <div class="mb-3">
-              <label for="publisher" class="form-label">Penerbit</label>
-              <input type="text" id="publisher" name="publisher" value="{{ old('publisher') }}" class="form-control @error('publisher') is-invalid @enderror">
-              @error('publisher')
-                <div class="form-text text-danger">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <div class="mb-3">
-              <label for="cover" class="form-label">Gambar Cover Buku</label>
-              <input type="file" class="form-control form-control-sm" id="cover" name="cover">
-              <div id="coverHelp" class="form-text">
-                Gunakan Gambar cover buku yang jelas!
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-4">
+                <figure class="figure">
+                  <img src="{{ $book->cover }}" class="figure-img img-fluid rounded" alt="...">
+                  <figcaption class="figure-caption">{{ $book->title }} by {{ $book->author }}</figcaption>
+                </figure>
               </div>
-              @error('cover')
-                <div class="text-danger">{{ $message }}</div>
-              @enderror
+              <div class="col-8">
+                <h1>{{ $book->title }}</h1>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Judul : {{ $book->title }}</td>
+                    </tr>
+                    <tr>
+                      <td>Penerbit : {{ $book->publisher }}</td>
+                    </tr>
+                    <tr>
+                      <td>Pengarang : {{ $book->author }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="row">
+                  <div class="col-8">
+
+                    <form action="{{ route('books.store') }}" method="post">
+                      @csrf
+                      <input type="hidden" id="book_title_id" name="book_title_id" value="{{ $book->id }}">
+                      <div class="input-group">
+                        <input type="text" name="amount" value="{{ old('amount') }}" placeholder="Jumlah buku .." class="form-control @error('amount') is-invalid @enderror">
+                        <span class="input-group-append">
+                          <button type="submit" class="btn btn-primary">Tambah Stok</button>
+                        </span>
+                        @error('amount')
+                          <div class="form-text text-danger">{{ $message }}</div>
+                        @enderror
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
             </div>
+          </div>
 
 
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col">
+              @can('delete', $book, App\Models\BookTitle::class)
+                <form method="POST" action="{{ route('book-titles.destroy', ['book_title' => $book->id]) }}">
+                  @method('DELETE')
+                  @csrf
+                  <button class="btn btn-danger me-2 " type="submit">Hapus</button>
+                </form>
+              @endcan
+            </div>
+            <div class="col d-flex justify-content-end">
+              <a class="btn btn-secondary me-2 " href="{{ route('book-titles.index') }}" role="button">Kembali</a>
+              @can('update', $book)
+                <a class="btn btn-primary me-2 " href="{{ route('book-titles.edit', ['book_title' => $book->id]) }}" role="button">Edit</a>
+              @endcan
+            </div>
           </div>
-          <div class="card-footer d-flex justify-content-end ">
-            <a class="btn btn-secondary me-2 " href="{{ route('book-titles.index') }}" role="button">Kembali</a>
-            <button type="submit" class="btn btn-primary me-2 ">Submit</button>
-          </div>
-        </form>
+        </div>
+
       </div>
 
     </div>

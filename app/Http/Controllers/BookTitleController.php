@@ -64,7 +64,7 @@ class BookTitleController extends Controller
      */
     public function edit(BookTitle $bookTitle)
     {
-        $this->authorize('update', BookTitle::class);
+        $this->authorize('update', $bookTitle);
         $book = $bookTitle;
         return view('book-title.edit', compact('book'));
     }
@@ -74,7 +74,7 @@ class BookTitleController extends Controller
      */
     public function update(UpdateBookTitleRequest $request, BookTitle $bookTitle)
     {
-        $this->authorize('update', BookTitle::class);
+        $this->authorize('update', $bookTitle);
         $input = $request->validated();
         if ($request->has('cover')) {
             Storage::delete('public/book_covers/' . $request->oldCover);

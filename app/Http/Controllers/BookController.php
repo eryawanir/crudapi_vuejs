@@ -21,9 +21,10 @@ class BookController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(BookTitle $bookTitle)
     {
-        return view('book.create');
+
+        return view('book.create')->with('book', $bookTitle);
     }
 
     public function choose_title()
@@ -37,7 +38,16 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $input = $request->validated();
+        for ($i = 0; $i < $input['amount']; $i++) {
+            $book = Book::create($input);
+            // book_title_id - book_id
+            $book_code = str_pad($input['book_title_id'], 4, '0', STR_PAD_LEFT)
+                . '-' . str_pad($book->id, 4, '0', STR_PAD_LEFT);
+            $book->code = $book_code;
+            $book->status = 'tersedia';
+            $book->save();
+        }
     }
 
     /**

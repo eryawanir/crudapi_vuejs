@@ -45,7 +45,7 @@
               @forelse ($books as $book)
                 <tr class="align-middle">
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $book->book_title->title }}</td>
+                  <td>{{ $book->book_title?->title }}</td>
                   <td>{{ $book->code }}</td>
                   <td>{{ $book->status }}</td>
                   <td>

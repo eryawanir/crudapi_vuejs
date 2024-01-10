@@ -42,7 +42,7 @@
                   <td>{{ $book->author }}</td>
                   <td>{{ $book->publisher }}</td>
                   <td>
-                    <a class="btn btn-primary" href="{{ route('book-titles.show', ['book_title' => $book->id]) }}" role="button">Pilih</a>
+                    <a class="btn btn-primary" href="{{ route('books.create', ['bookTitle' => $book->id]) }}" role="button">Pilih</a>
                   </td>
                 </tr>
               @empty
