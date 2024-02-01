@@ -53,10 +53,10 @@ class RequestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // public function update(UpdateRequestRequest $request, Request $request)
-    // {
-    //     return 0;
-    // }
+    public function update()
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -64,5 +64,12 @@ class RequestController extends Controller
     public function destroy(Request $request)
     {
         //
+    }
+
+    public function process(ModelsRequest $request)
+    {
+
+
+        return view('request.process', compact('request'));
     }
 }

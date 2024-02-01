@@ -43,7 +43,7 @@
                   <td>{{ $request->book_title->title }}</td>
                   <td>{{ $request->waktu() }}</td>
                   <td>
-                    {{-- <a class="btn btn-primary" href="{{ route('book-titles.show', ['book_title' => $requ->id]) }}" role="button">Lihat</a> --}}
+                    <a class="btn btn-primary" href="{{ route('requests.process', ['request' => $request->id]) }}" role="button">Proses</a>
                   </td>
                 </tr>
               @empty
