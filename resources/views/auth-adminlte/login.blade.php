@@ -60,10 +60,7 @@
 
         </form>
 
-        <p class="mb-0"> Pendaftaran anggota baru silahkan
-          <a href="{{ route('register') }}" class="text-center">
-            disini
-          </a>
+        <p class="mb-0"> Pendaftaran anggota baru silahkan hubungi petugas
         </p>
       </div><!-- /.login-card-body -->
     </div>

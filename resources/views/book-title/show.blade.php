@@ -70,6 +70,15 @@
               @can('update', $book, App\Models\BookTitle::class)
                 <a class="btn btn-primary me-2 " href="{{ route('book-titles.edit', ['book_title' => $book->id]) }}" role="button">Edit</a>
               @endcan
+              @anggota
+                <form id="logout-form" action="{{ route('myrequests.store') }}" method="POST" class="">
+                  @csrf
+                  <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
+                  <input type="hidden" value="{{ $book->id }}" name="book_title_id">
+                  <input type="hidden" value="0" name="status">
+                  <button type="submit" class="btn btn-primary me-2 ">Pinjam Buku Ini</button>
+                </form>
+              @endanggota
             </div>
           </div>
         </div>

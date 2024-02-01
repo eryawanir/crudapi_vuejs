@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CoverDummyImage;
 use App\Models\BookTitle;
 use App\Http\Requests\StoreBookTitleRequest;
 use App\Http\Requests\UpdateBookTitleRequest;
@@ -11,7 +12,7 @@ class BookTitleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth');
         // $this->middleware('admin')->except(['index', 'show']);
     }
     /**
@@ -19,8 +20,12 @@ class BookTitleController extends Controller
      */
     public function index()
     {
-        $books = BookTitle::all();
-        return view('book-title.index', compact('books'));
+        $query = BookTitle::query();
+        if ($keyword = request('term')) {
+            $query->where('title', 'Like', '%' . $keyword . '%');
+        }
+        $books = $query->latest()->paginate(5);
+        return view('book-title.index', compact('books', 'keyword'));
     }
 
     /**
@@ -44,7 +49,7 @@ class BookTitleController extends Controller
         BookTitle::create($input);
         session()->flash(
             'pesan',
-            'Tambah judul buku' . $request->title . ' berhasil'
+            'Tambah judul buku ' . $request->title . ' berhasil'
         );
 
         return redirect()->route('book-titles.index');
@@ -77,11 +82,17 @@ class BookTitleController extends Controller
         $this->authorize('update', $bookTitle);
         $input = $request->validated();
         if ($request->has('cover')) {
-            Storage::delete('public/book_covers/' . $request->oldCover);
+            if (!(in_array($request->oldCover, CoverDummyImage::COVER))) {
+                Storage::delete('public/book_covers/' . $request->oldCover);
+            }
             $request->cover->store('public/book_covers');
             $input['cover'] = $request->cover->hashName();
         }
         BookTitle::where('id', $bookTitle->id)->update($input);
+        session()->flash(
+            'pesan',
+            'Edit judul buku ' . $request->title . ' berhasil'
+        );
         return redirect()->route('book-titles.index');
     }
 
@@ -90,10 +101,13 @@ class BookTitleController extends Controller
      */
     public function destroy(BookTitle $bookTitle)
     {
-        $this->authorize('delete', BookTitle::class);
-        Storage::delete('public/book_covers/' . $bookTitle->cover);
+        $this->authorize('delete', $bookTitle);
+
+        if (!(in_array($bookTitle->oldCover, CoverDummyImage::COVER))) {
+            Storage::delete('public/book_covers/' . $bookTitle->cover);
+        }
         $bookTitle->delete();
         return redirect()->route('book-titles.index')
-            ->with('pesan', "Hapus data $bookTitle->nama berhasil");
+            ->with('pesan', "Hapus data berhasil");
     }
 }

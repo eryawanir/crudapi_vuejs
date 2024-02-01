@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Helpers\CoverDummyImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,15 +17,12 @@ class BookTitleFactory extends Factory
      */
     public function definition(): array
     {
-        $image_names = [
-            'hijau', 'biru'
-        ];
 
         return [
             'title' => $this->faker->words(2, true),
             'author' => $this->faker->name(),
             'publisher' => $this->faker->company(),
-            'cover' => $this->faker->randomElement($image_names),
+            'cover' => $this->faker->randomElement(CoverDummyImage::COVER),
         ];
     }
 }

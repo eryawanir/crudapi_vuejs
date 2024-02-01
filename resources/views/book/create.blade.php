@@ -46,6 +46,9 @@
                     <tr>
                       <td>Pengarang : {{ $book->author }}</td>
                     </tr>
+                    <tr>
+                      <td>Jumlah Stok : {{ $book->jumlah() }}</td>
+                    </tr>
                   </tbody>
                 </table>
 

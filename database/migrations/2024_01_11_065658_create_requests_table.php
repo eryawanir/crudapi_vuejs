@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
-            $table->foreignId('book_title_id')->nullable();
-            $table->enum('status', ['dipinjam', 'tersedia', 'hilang']);
+            $table->integer('user_id');
+            $table->integer('book_title_id');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('requests');
     }
 };

@@ -41,23 +41,26 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item"><a href="{{ route('requests.index') }}" class="nav-link {{ request()->routeIs('requests.*') ? 'active' : '' }}"><i class="nav-icon bi bi-bag"></i>
+                <p>
+                  Permintaan Buku
+                </p>
+              </a>
+            </li>
           @endif
           @if (auth()->user()->role == 'anggota')
             <li class="nav-header">PEMINJAMAN</li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-book"></i>
+            <li class="nav-item"><a href="{{ route('myrequests.index') }}" class="nav-link {{ request()->routeIs('myrequests.*') ? 'active' : '' }}"><i class="nav-icon bi bi-bag"></i>
                 <p>
-                  Buku
-                  <i class="nav-arrow bi bi-chevron-right"></i>
+                  Permintaan
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-list"></i>
-                    <p>Daftar</p>
-                  </a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-file-earmark-plus"></i>
-                    <p>Pendaftaran</p>
-                  </a></li>
-              </ul>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-bag-check"></i>
+                <p>
+                  Peminjaman
+                </p>
+              </a>
             </li>
           @endif
         @endguest

@@ -14,8 +14,26 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('book_title')->get();
-        return view('book.index')->with('books', $books);
+        $data = [
+            'keyword' => request('term'),
+            'column' => request('column'),
+            'status' => request('status') ?? 'tersedia'
+        ];
+
+        $query = Book::with('book_title')->where('status', '=', $data['status']);
+
+        if ($data['column'] == 'code') {
+            $query->where('code', 'Like', '%' . $data['keyword'] . '%');
+        }
+
+        if ($data['column'] == 'title') {
+            $query->WhereHas('book_title', function ($q) use ($data) {
+                $q->where('title', 'Like', '%' . $data['keyword'] . '%');
+            });
+        }
+        $books = $query->latest()->paginate(5);
+
+        return view('book.index', compact('books', 'data'));
     }
 
     /**
@@ -23,14 +41,17 @@ class BookController extends Controller
      */
     public function create(BookTitle $bookTitle)
     {
-
         return view('book.create')->with('book', $bookTitle);
     }
 
     public function choose_title()
     {
-        $books = BookTitle::all();
-        return view('book.choose_title')->with('books', $books);
+        $query = BookTitle::with('books');
+        if ($keyword = request('term')) {
+            $query->where('title', 'Like', '%' . $keyword . '%');
+        }
+        $books = $query->latest()->paginate(5);
+        return view('book.choose_title', compact('books', 'keyword'));
     }
 
     /**
@@ -48,6 +69,13 @@ class BookController extends Controller
             $book->status = 'tersedia';
             $book->save();
         }
+        session()->flash(
+            'pesan',
+            "Tambah {$input['amount']} stok buku "
+                . BookTitle::find($input['book_title_id'])->title .
+                ' berhasil'
+        );
+        return redirect()->route('books.index');
     }
 
     /**
@@ -55,7 +83,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('book.show', compact('book'));
     }
 
     /**

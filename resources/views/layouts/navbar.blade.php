@@ -2,8 +2,6 @@
   <div class="container-fluid"><!--begin::Start Navbar Links-->
     <ul class="navbar-nav">
       <li class="nav-item"><a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"><i class="bi bi-list"></i></a></li>
-      <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-      <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
     </ul><!--end::Start Navbar Links--><!--begin::End Navbar Links-->
     <ul class="navbar-nav ms-auto"><!--begin::Navbar Search-->
       <!--begin::Fullscreen Toggle-->
@@ -30,7 +28,7 @@
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="bi bi-person-fill"></i>
-            <span class="d-md-inline">{{ Auth::user()->name }}</span>
+            <span class="d-md-inline">{{ ucfirst(Auth::user()->role) }} : {{ Auth::user()->name }}</span>
           </a>
         </li>
         <li class="nav-item">
