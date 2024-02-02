@@ -20,7 +20,7 @@
       <div class="card mb-4">
         <div class="card-header">
           <div class="row">
-            <h3 class="">Daftar Permintaan Peminjaman Buku</h3>
+            <h3 class="">Daftar Peminjaman Buku</h3>
           </div>
 
         </div><!-- /.card-header -->
@@ -30,20 +30,20 @@
               <tr>
                 <th style="width: 10px">#</th>
                 <th>Nama</th>
-                <th>Buku yang akan dipinjam</th>
+                <th>Buku yang dipinjam</th>
                 <th>Waktu Permintaan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @forelse ($peminjamans as $request)
+              @forelse ($peminjamans as $peminjaman)
                 <tr class="align-middle">
-                  <td>{{ $requests->firstItem() + $loop->index }}</td>
-                  <td>{{ $request->user->name }}</td>
-                  <td>{{ $request->book_title->title }}</td>
-                  <td>{{ $request->waktu() }}</td>
+                  <td>{{ $peminjamans->firstItem() + $loop->index }}</td>
+                  <td>{{ $peminjaman->user->name }}</td>
+                  <td>{{ $peminjaman->book->book_title->title }}</td>
+                  <td>{{ $peminjaman->status }}</td>
                   <td>
-                    <a class="btn btn-primary" href="{{ route('requests.process', ['request' => $request->id]) }}" role="button">Proses</a>
+                    <a class="btn btn-primary" href="" role="button">Proses</a>
                   </td>
                 </tr>
               @empty
@@ -54,7 +54,7 @@
         </div><!-- /.card-body -->
         <div class="card-footer clearfix">
           <ul class="pagination pagination-sm m-0 float-end">
-            {{-- {{ $peminjamans->withQueryString()->links() }} --}}
+            {{ $peminjamans->withQueryString()->links() }}
           </ul>
         </div>
       </div><!-- /.card -->

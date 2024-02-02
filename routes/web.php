@@ -36,4 +36,5 @@ Route::resource('myrequests', UserRequestController::class);
 
 Route::name('peminjamans.')->prefix('peminjamans')->group(function () {
     Route::get('', [PeminjamanController::class, 'index'])->name('index');
+    Route::post('', [PeminjamanController::class, 'store'])->name('store');
 });

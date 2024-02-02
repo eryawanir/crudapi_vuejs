@@ -49,11 +49,13 @@
         <div class="card-header">
           <div class="card-title text-primary fw-bold">Form Pemberian Peminjaman Buku</div>
         </div>
-        <form>
+        <form method="post" action="{{ route('peminjamans.store') }}">
+          @csrf
           <div class="card-body">
             <label class="form-label">Jumlah Buku Tersedia : {{ $request->book_title->jumlah() }}</label>
             <div class="mb-1">
-              <select class="form-select" aria-label="Default select example">
+              <input type="hidden" name="user_id" value="{{ $request->user_id }}">
+              <select name="book_id" class="form-select" aria-label="Default select example">
                 <option disabled selected>Pilih Kode buku</option>
                 @foreach ($request->book_title->books as $book)
                   <option value="{{ $book->id }}">{{ $book->code }}</option>
