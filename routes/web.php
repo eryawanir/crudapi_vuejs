@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookTitleController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\User\UserRequestController;
 use Illuminate\Support\Facades\Auth;
@@ -24,11 +25,15 @@ Route::redirect('/', 'book-titles');
 Route::redirect('/home', 'book-titles');
 
 Route::resource('book-titles', BookTitleController::class);
+
 Route::get('books/choose-book-title', [BookController::class, 'choose_title'])->name('books.choose-title');
 Route::get('books/create/{bookTitle}', [BookController::class, 'create'])->name('books.create');
+Route::resource('books', BookController::class, ['except' => ['create']]);
 
 Route::get('requests/process/{request}', [RequestController::class, 'process'])->name('requests.process');
 Route::resource('requests', RequestController::class);
 Route::resource('myrequests', UserRequestController::class);
 
-Route::resource('books', BookController::class, ['except' => ['create']]);
+Route::name('peminjamans.')->prefix('peminjamans')->group(function () {
+    Route::get('', [PeminjamanController::class, 'index'])->name('index');
+});

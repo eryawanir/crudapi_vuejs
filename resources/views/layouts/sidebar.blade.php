@@ -43,7 +43,13 @@
             </li>
             <li class="nav-item"><a href="{{ route('requests.index') }}" class="nav-link {{ request()->routeIs('requests.*') ? 'active' : '' }}"><i class="nav-icon bi bi-bag"></i>
                 <p>
-                  Permintaan Buku
+                  Permintaan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item"><a href="{{ route('peminjamans.index') }}" class="nav-link {{ request()->routeIs('peminjamans.*') ? 'active' : '' }}"><i class="nav-icon bi bi-bag-check"></i>
+                <p>
+                  Peminjaman
                 </p>
               </a>
             </li>
