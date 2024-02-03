@@ -31,9 +31,17 @@ class BookTitle extends Model
     {
         return $this->hasMany(Book::class);
     }
+    public function availableBooks()
+    {
+        return $this->hasMany(Book::class)->where('status', 'tersedia');
+    }
 
     public function jumlah()
     {
         return $this->books->count();
+    }
+    public function jumlahTersedia()
+    {
+        return $this->availableBooks()->count();
     }
 }
