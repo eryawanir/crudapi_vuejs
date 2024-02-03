@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RequestStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequestRequest;
 use App\Http\Requests\UpdateRequestRequest;
@@ -14,7 +15,8 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $requests = ModelsRequest::with('user', 'book_title')->oldest()->paginate(5);
+        $requests = ModelsRequest::with('user', 'book_title')
+            ->where('status', '=', 0)->oldest()->paginate(5);
         return view('request.index', compact('requests'));
     }
 
@@ -71,5 +73,11 @@ class RequestController extends Controller
 
 
         return view('request.process', compact('request'));
+    }
+
+    public function cancel(ModelsRequest $request)
+    {
+        $request->update(['status' => RequestStatus::Ditolak]);
+        return redirect()->route('requests.index');
     }
 }

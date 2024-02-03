@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RequestStatus;
 use App\Helpers\StatusPeminjaman;
 use App\Models\Peminjaman;
+use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
 
 class PeminjamanController extends Controller
@@ -22,5 +24,9 @@ class PeminjamanController extends Controller
         $peminjaman->book_id = $validasi['book_id'];
         $peminjaman->status = StatusPeminjaman::BelumDiambil;
         $peminjaman->save();
+
+        ModelsRequest::where('id', $request->request_id)->update([
+            'status' => RequestStatus::Diterima
+        ]);
     }
 }

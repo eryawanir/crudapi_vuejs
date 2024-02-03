@@ -31,6 +31,7 @@ Route::get('books/create/{bookTitle}', [BookController::class, 'create'])->name(
 Route::resource('books', BookController::class, ['except' => ['create']]);
 
 Route::get('requests/process/{request}', [RequestController::class, 'process'])->name('requests.process');
+Route::post('requests/cancel/{request}', [RequestController::class, 'cancel'])->name('requests.cancel');
 Route::resource('requests', RequestController::class);
 Route::resource('myrequests', UserRequestController::class);
 
