@@ -38,4 +38,6 @@ Route::resource('myrequests', UserRequestController::class);
 Route::name('peminjamans.')->prefix('peminjamans')->group(function () {
     Route::get('', [PeminjamanController::class, 'index'])->name('index');
     Route::post('', [PeminjamanController::class, 'store'])->name('store');
+    Route::get('ambil/{peminjaman}', [PeminjamanController::class, 'ambil'])->name('ambil');
+    Route::get('selesai/{peminjaman}/{buku}', [PeminjamanController::class, 'selesai'])->name('selesai');
 });

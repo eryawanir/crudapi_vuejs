@@ -9,5 +9,5 @@ enum StatusPeminjaman: int
     use EnumToArray;
     case BelumDiambil = 0;
     case Dipinjam = 1;
-    case Hilang = 2;
+    case Selesai = 2;
 }

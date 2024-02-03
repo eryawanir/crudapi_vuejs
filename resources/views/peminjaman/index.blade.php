@@ -31,7 +31,7 @@
                 <th style="width: 10px">#</th>
                 <th>Nama</th>
                 <th>Buku yang dipinjam</th>
-                <th>Waktu Permintaan</th>
+                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -43,26 +43,36 @@
                   <td>{{ $peminjaman->book->book_title->title }}</td>
                   <td>{{ $peminjaman->status }}</td>
                   <td>
-                    <a class="btn btn-primary" href="" role="button">Proses</a>
+                    @switch($peminjaman->getRawOriginal('status'))
+                      @case(0)
+                        <a class="btn btn-primary" href="{{ route('peminjamans.ambil', ['peminjaman' => $peminjaman->id]) }}" role="button">Sudah Diambil</a>
+                      @break
+
+                      @case(1)
+                        <a class="btn btn-success" href="{{ route('peminjamans.selesai', ['peminjaman' => $peminjaman->id, 'buku' => $peminjaman->book_id]) }}" role="button">Sudah Dikembalikan</a>
+                      @break
+
+                      @default
+                    @endswitch
                   </td>
                 </tr>
-              @empty
-              @endforelse
+                @empty
+                @endforelse
 
-            </tbody>
-          </table>
-        </div><!-- /.card-body -->
-        <div class="card-footer clearfix">
-          <ul class="pagination pagination-sm m-0 float-end">
-            {{ $peminjamans->withQueryString()->links() }}
-          </ul>
-        </div>
-      </div><!-- /.card -->
-    </div><!-- /.col -->
-  </div><!--end::Row-->
-@endsection
+              </tbody>
+            </table>
+          </div><!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-end">
+              {{ $peminjamans->withQueryString()->links() }}
+            </ul>
+          </div>
+        </div><!-- /.card -->
+      </div><!-- /.col -->
+    </div><!--end::Row-->
+  @endsection
 
 
-@section('script')
-  @include('layouts.script-adminlte')
-@endsection
+  @section('script')
+    @include('layouts.script-adminlte')
+  @endsection

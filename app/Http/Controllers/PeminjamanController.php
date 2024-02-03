@@ -13,7 +13,9 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjamans = Peminjaman::with('book', 'user')->oldest()->paginate(5);
+        $peminjamans = Peminjaman::with('book', 'user')
+            ->where('status', '!=', StatusPeminjaman::Selesai)
+            ->oldest()->paginate(5);
         return view('peminjaman.index', compact('peminjamans'));
     }
 
@@ -35,5 +37,23 @@ class PeminjamanController extends Controller
         ]);
 
         return redirect()->route('requests.index');
+    }
+
+    public function ambil($id_peminjaman)
+    {
+        Peminjaman::where('id', $id_peminjaman)->update([
+            'status' => StatusPeminjaman::Dipinjam
+        ]);
+        return redirect()->route('peminjamans.index');
+    }
+    public function selesai($id_peminjaman, $book_id)
+    {
+        Peminjaman::where('id', $id_peminjaman)->update([
+            'status' => StatusPeminjaman::Selesai
+        ]);
+        Book::where('id', $book_id)->update([
+            'status' => 'tersedia'
+        ]);
+        return redirect()->route('peminjamans.index');
     }
 }
