@@ -55,7 +55,7 @@
             <label class="form-label">Jumlah Buku Tersedia : {{ $request->book_title->jumlah() }}</label>
             <div class="mb-1">
               <input type="hidden" name="user_id" value="{{ $request->user_id }}">
-              <input type="hidden" name="request_id" value="{{ $request->user_id }}">
+              <input type="hidden" name="request_id" value="{{ $request->id }}">
               <select name="book_id" class="form-select" aria-label="Default select example">
                 <option disabled selected>Pilih Kode buku</option>
                 @foreach ($request->book_title->books as $book)
@@ -82,7 +82,7 @@
             <label class="form-label">Silahkan klik tombol dibawah bila ingin menolak permintaan peminjaman buku</label>
             <div class="mb-1">
               <input type="hidden" name="user_id" value="{{ $request->user_id }}">
-              <input type="hidden" name="request_id" value="{{ $request->user_id }}">
+              <input type="hidden" name="request_id" value="{{ $request->id }}">
             </div>
           </div>
           <div class="card-footer">

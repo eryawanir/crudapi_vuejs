@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RequestStatus;
 use App\Helpers\StatusPeminjaman;
+use App\Models\Book;
 use App\Models\Peminjaman;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
@@ -28,5 +29,11 @@ class PeminjamanController extends Controller
         ModelsRequest::where('id', $request->request_id)->update([
             'status' => RequestStatus::Diterima
         ]);
+
+        Book::where('id', $validasi['book_id'])->update([
+            'status' => 'dipinjam'
+        ]);
+
+        return redirect()->route('requests.index');
     }
 }
