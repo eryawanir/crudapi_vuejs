@@ -41,3 +41,8 @@ Route::name('peminjamans.')->prefix('peminjamans')->group(function () {
     Route::get('ambil/{peminjaman}', [PeminjamanController::class, 'ambil'])->name('ambil');
     Route::get('selesai/{peminjaman}/{buku}', [PeminjamanController::class, 'selesai'])->name('selesai');
 });
+
+
+Route::get('/buku/{nama}', function ($nama) {
+    return "Tampilkan data buku bernama $nama";
+});

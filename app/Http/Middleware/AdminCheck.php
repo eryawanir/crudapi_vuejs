@@ -19,6 +19,6 @@ class AdminCheck
         if (Auth::user()->role == 'petugas') {
             return $next($request);
         }
-        return redirect()->route('book-titles.index')->with('pesan', 'ga boleh');
+        return redirect()->route('book-titles.index');
     }
 }

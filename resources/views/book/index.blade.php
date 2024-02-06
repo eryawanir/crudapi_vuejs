@@ -60,7 +60,7 @@
                 <th>Judul</th>
                 <th>Kode</th>
                 <th>Status</th>
-                <th>Aksi</th>
+
               </tr>
             </thead>
             <tbody>
@@ -70,9 +70,6 @@
                   <td>{{ $book->book_title?->title ?? 'Data tidak tersedia' }}</td>
                   <td>{{ $book->code }}</td>
                   <td>{{ $book->status }}</td>
-                  <td>
-                    <a class="btn btn-primary" href="{{ route('books.show', ['book' => $book->id]) }}" role="button">Lihat</a>
-                  </td>
                 </tr>
               @empty
               @endforelse

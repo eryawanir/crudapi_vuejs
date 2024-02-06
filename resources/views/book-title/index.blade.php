@@ -2,9 +2,8 @@
 
 @section('head')
   @include('layouts.head-adminlte', [
-      'tab_title' => 'Example',
+      'tab_title' => 'Daftar Judul Buku',
   ])
-  {{-- Bisa disisipkan tag <link> --}}
 @endsection
 
 @section('header')
@@ -12,7 +11,7 @@
   @include('layouts.sidebar')
 @endsection
 
-@section('page_title', 'Example')
+@section('page_title', 'Daftar Judul Buku')
 
 @section('content')
   <div class="row">

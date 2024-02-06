@@ -25,12 +25,10 @@ class ApiBookTitleController extends Controller
             'publisher'     => 'required',
             'cover'     => 'required|image|max:2048',
         ]);
-
         //check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
         //upload image
         $request->cover->store('public/book_covers');
 
@@ -41,7 +39,6 @@ class ApiBookTitleController extends Controller
             'publisher'   => $request->publisher,
             'cover'     => $request->cover->hashName(),
         ]);
-
         //return response
         return new BookTitleResource(
             true,
